@@ -13,6 +13,26 @@ DateTime Record::getDate() {
   return date;
 }
 
+string Record::getIp() {
+  return ip;
+}
+
+string Record::getPort() {
+  return port;
+}
+
+string Record::getEntry() {
+  return entry;
+}
+
+string Record::getReason() {
+  return reason;
+}
+
+/*Record& Record::operator=(Record& rec) {
+  return rec;
+}*/
+
 bool Record::operator>(Record & other) {
   return (this->date > other.date);
 }

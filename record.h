@@ -4,17 +4,21 @@
 class Record {
   public:
     Record(std::string);
-    const std::string ip;
-    const std::string port;
-    const std::string reason;
-    const std::string entry;  // The full entry
-    
     DateTime getDate();
+    std::string getIp();
+    std::string getPort();
+    std::string getReason();
+    std::string getEntry();
 
     // For convenience
     bool operator>(Record&);
     bool operator<(Record&);
+    //Record& operator=(Record&);
     friend std::ostream& operator<<(std::ostream&, Record&);
   private:
+    std::string ip;
+    std::string port;
+    std::string reason;
+    std::string entry;  // The full entry
     DateTime date;
 };

@@ -47,6 +47,10 @@ int DateTime::getMonth() {
   return dateStruct.tm_mon;
 }
 
+string DateTime::getDateString() {
+  return dateString;
+}
+
 bool DateTime::operator==(const DateTime &other) {
   return this->date == other.date;
 }
