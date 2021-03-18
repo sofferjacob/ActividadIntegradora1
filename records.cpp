@@ -1,4 +1,5 @@
 #include "records.h"
+#include "invalid_date.h"
 
 using namespace std;
 
@@ -9,10 +10,13 @@ Records::Records(string filename) {
     records.push_back(Record(currentLine));
   }
   file.close();
-  sort(0, records.size() - 1);
+  int comps = sort(0, records.size() - 1);
+  cout << "comparisons: " << comps << endl;
+  ofstream orderedFile("bitacora_ordenada.txt");
   for (int i = 0; i < records.size(); i++) {
-    cout << records[i] << endl;
+    orderedFile << records[i] << endl;
   }
+  orderedFile.close();
 }
 
 int Records::sort(int low, int high) {
@@ -46,4 +50,36 @@ void Records::partition(int low, int high, int res[2]) {
     records[i+1] = temp;
     res[0] = i+1;
     res[1] = comps;
+}
+
+int Records::search(DateTime target) {
+  int n = records.size();
+  int left = 0;
+  int right = n - 1;
+  while (left <= right) {
+    int m = (left + right) / 2;
+    DateTime val = records[m].getDate();
+    if (val == target) { 
+      return m; 
+    } else if (target < val) {
+      right = m - 1;
+    } else {
+      left = m + 1;
+    }
+  }
+  return -1;
+}
+
+void Records::find(DateTime from, DateTime to) {
+  int l = search(from);
+  if (l == -1) {
+    throw InvalidDate("Start date not found on registry");
+  }
+  int r = search(to);
+  if (r == -1) {
+    throw InvalidDate("End date not found on registry");
+  }
+  for (; l <= r; l++) {
+    cout << records[l] << endl;
+  }
 }

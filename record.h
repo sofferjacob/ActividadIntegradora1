@@ -1,3 +1,6 @@
+#ifndef PI_RECORD_H
+#define PI_RECORD_H
+
 #include <iostream>
 #include "date_time.h"
 
@@ -22,3 +25,5 @@ class Record {
     std::string entry;  // The full entry
     DateTime date;
 };
+
+#endif

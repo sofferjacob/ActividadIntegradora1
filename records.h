@@ -1,3 +1,6 @@
+#ifndef RECORDS_H
+#define RECORDS_H
+
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -6,9 +9,12 @@
 class Records {
   public:
     Records(std::string);
-    void find(int, int);
+    void find(DateTime from, DateTime to);
   private:
+    int search(DateTime);
     std::vector<Record> records;
     int sort(int, int); // QuickSort
     void partition(int, int, int[2]);
 };
+
+#endif

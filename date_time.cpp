@@ -1,4 +1,6 @@
 #include "date_time.h"
+#include "invalid_date.h"
+#include <string.h>
 
 using namespace std;
 
@@ -18,6 +20,9 @@ const unordered_map<string, int> DateTime::months = {
 };
 
 DateTime::DateTime(string from) : dateString(from) {
+  if (from.length() != 15 || !regex_match(from, regex("([a-zA-Z]{3}\\s[0-3]\\d\\s[0-2]\\d:[0-5]\\d:[0-5]\\d)"))) {
+    throw InvalidDate("Invalid date");
+  }
   dateStruct.tm_sec = stoi(from.substr(13, 2));
   dateStruct.tm_min = stoi(from.substr(10, 2));
   dateStruct.tm_hour = stoi(from.substr(7, 2));

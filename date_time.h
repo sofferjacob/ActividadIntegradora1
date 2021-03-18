@@ -1,7 +1,11 @@
 // Abstract dates with a proper type
+#ifndef DATE_TIME_H
+#define DATE_TIME_H
+
 #include <time.h>
 #include <iostream>
 #include <unordered_map>
+#include <regex>
 
 class DateTime {
   public:
@@ -24,3 +28,5 @@ class DateTime {
     time_t date;
     static const std::unordered_map<std::string, int> months;
 };
+
+#endif
