@@ -19,6 +19,17 @@ const unordered_map<string, int> DateTime::months = {
       {"Dec", 11}
 };
 
+DateTime::DateTime() {
+  dateString = "Jan 01 00:00:00";
+  dateStruct.tm_sec = 0;
+  dateStruct.tm_min = 0;
+  dateStruct.tm_hour = 0;
+  dateStruct.tm_mday = 1;
+  dateStruct.tm_mon = 0;
+  dateStruct.tm_year = 121;  // We assume 2021
+  date = mktime(&dateStruct);
+}
+
 DateTime::DateTime(string from) : dateString(from) {
   if (from.length() != 15 || !regex_match(from, regex("([a-zA-Z]{3}\\s[0-3]\\d\\s[0-2]\\d:[0-5]\\d:[0-5]\\d)"))) {
     throw InvalidDate("Invalid date");
@@ -70,6 +81,10 @@ bool DateTime::operator>(const DateTime &other) {
 
 bool DateTime::operator<(const DateTime &other) {
   return this->date < other.date;
+}
+
+bool DateTime::operator<=(const DateTime &other) {
+  return this->date <= other.date;
 }
 
 ostream& operator<<(ostream& out, DateTime& d) {

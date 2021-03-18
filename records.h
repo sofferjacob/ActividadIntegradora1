@@ -14,7 +14,7 @@ class Records {
     int search(DateTime);
     std::vector<Record> records;
     int sort(int, int); // QuickSort
-    void partition(int, int, int[2]);
+    int merge(int, int, int);
 };
 
 #endif

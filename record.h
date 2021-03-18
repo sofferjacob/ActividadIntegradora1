@@ -6,6 +6,7 @@
 
 class Record {
   public:
+    Record();
     Record(std::string);
     DateTime getDate();
     std::string getIp();
@@ -16,6 +17,7 @@ class Record {
     // For convenience
     bool operator>(Record&);
     bool operator<(Record&);
+    bool operator<=(Record&);
     //Record& operator=(Record&);
     friend std::ostream& operator<<(std::ostream&, Record&);
   private:

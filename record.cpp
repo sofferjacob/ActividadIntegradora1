@@ -2,6 +2,14 @@
 
 using namespace std;
 
+Record::Record() {
+  entry = "Jan 01 00:00:00 33.116.103.137:162 Failed password for illegal user guest";
+  date = DateTime();
+  ip = "33.116.103.137";
+  port = "162";
+  reason = "Failed password for illegal user guest";
+}
+
 Record::Record(string rec) :
   entry(rec),
   date(DateTime(rec.substr(0, 15))),
@@ -39,6 +47,10 @@ bool Record::operator>(Record & other) {
 
 bool Record::operator<(Record & other) {
   return (this->date < other.date);
+}
+
+bool Record::operator<=(Record & other) {
+  return (this->date <= other.date);
 }
 
 ostream& operator<<(ostream& out, Record& rec) {

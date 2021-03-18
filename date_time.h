@@ -9,6 +9,7 @@
 
 class DateTime {
   public:
+    DateTime();
     DateTime(std::string);
     int getSeconds();
     int getMinutes();
@@ -21,6 +22,7 @@ class DateTime {
     bool operator !=(const DateTime&);
     bool operator >(const DateTime&);
     bool operator <(const DateTime&);
+    bool operator <=(const DateTime&);
     friend std::ostream& operator <<(std::ostream&, DateTime&);
   private:
     std::string dateString;  // Date in a human-readable form

@@ -1,3 +1,5 @@
+#include <chrono>
+#include <time.h>
 #include "records.h"
 #include "invalid_date.h"
 
@@ -10,8 +12,12 @@ Records::Records(string filename) {
     records.push_back(Record(currentLine));
   }
   file.close();
+  auto startTime = chrono::high_resolution_clock::now();
   int comps = sort(0, records.size() - 1);
+  auto endTime = chrono::high_resolution_clock::now();
+  auto totalTime = endTime - startTime;
   cout << "comparisons: " << comps << endl;
+  cout << "Tiempo total de ejecución: " << totalTime/chrono::milliseconds(1) << " ms." << endl;
   ofstream orderedFile("bitacora_ordenada.txt");
   for (int i = 0; i < records.size(); i++) {
     orderedFile << records[i] << endl;
@@ -20,36 +26,52 @@ Records::Records(string filename) {
 }
 
 int Records::sort(int low, int high) {
-  if (low >= high) return 0;
-    int partRes[2] = {-1, -1};
-    partition(low, high, partRes); 
-    // [low...pi-1]
-    int c1 = sort(low, partRes[0] - 1); 
-    // [pi+1...high]
-    int c2 = sort(partRes[0] + 1, high);
-    return partRes[1] + c1 + c2;
+  if (low >= high) {
+    return 0;
+  }
+  int m = low + ((high - low)/2);
+  int c1 = sort(low, m);
+  int c2 = sort(m+1, high);
+  return merge(low, m, high) + c1 + c2;
 }
 
-void Records::partition(int low, int high, int res[2]) {
+int Records::merge(int low, int m, int high) {
   int comps = 0;
-    Record pivot = records[high];
-    int i = (low - 1); 
- 
-    for (int j = low; j <= high - 1; j++) { 
-      comps++;
-        // If current element is smaller than the pivot 
-        if (records[j] < pivot) { 
-            i++; // increment index of smaller element
-            Record tmp = records[i];
-            records[i] = records[j];
-            records[j] = tmp;
-        } 
+  int n1 = m - low + 1;
+  int n2 = high - m;
+  Record L[n1];
+  Record R[n2];
+  for (int i = 0; i < n1; i++) {
+    L[i] = records[low+i];
+  }
+  for (int j = 0; j < n2; j++) {
+    R[j] = records[j+m+1];
+  }
+  int k = low;
+  int i = 0;
+  int j = 0;
+  while (i < n1 && j < n2) {
+    comps++;
+    if (L[i] <= R[j]) {
+      records[k] = L[i];
+      i++;
+    } else {
+      records[k] = R[j];
+      j++;
     }
-   Record temp = records[high];
-    records[high] = records[i+1];
-    records[i+1] = temp;
-    res[0] = i+1;
-    res[1] = comps;
+    k++;
+  }
+  while (i < n1) {
+    records[k] = L[i];
+    i++;
+    k++;
+  }
+  while (j < n2) {
+    records[k] = R[j];
+    j++;
+    k++;
+  }
+  return comps;
 }
 
 int Records::search(DateTime target) {
