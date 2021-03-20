@@ -1,3 +1,10 @@
+/*
+Jacobo Soffer Levy
+A01028653
+Record class methods
+definition.
+Modified: 19/03/21
+*/
 #include "record.h"
 
 using namespace std;

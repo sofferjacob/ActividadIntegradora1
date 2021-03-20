@@ -1,17 +1,35 @@
+/*
+Jacobo Soffer Levy
+A01028653
+Definition of the Records
+class methods.
+Modified: 19/03/21
+*/
 #include "records.h"
 #include "invalid_date.h"
+#include <chrono>
 
 using namespace std;
 
 Records::Records(string filename) {
   ifstream file(filename);
+  if (!file.good()) {
+    file.close();
+    throw invalid_argument("File not found");
+    return;
+  }
   string currentLine;
   while (getline(file, currentLine)) {
     records.push_back(Record(currentLine));
   }
   file.close();
+  auto startTime = chrono::high_resolution_clock::now();
   int comps = sort(0, records.size() - 1);
-  cout << "comparisons: " << comps << endl;
+  auto endTime = chrono::high_resolution_clock::now();
+  auto totalTime = endTime - startTime;
+  cout << "Sorting comparisons: " << comps << endl;
+  cout << "Sorting Time: " << totalTime/chrono::milliseconds(1) << " ms." << endl;
+  cout << "Records in registry: " << records.size() << endl;
   ofstream orderedFile("bitacora_ordenada.txt");
   for (int i = 0; i < records.size(); i++) {
     orderedFile << records[i] << endl;

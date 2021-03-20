@@ -1,4 +1,10 @@
-// Abstract dates with a proper type
+/*
+Jacobo Soffer Levy
+A01028653
+Abstracts dates with a
+proper type.
+Modified: 19/03/21
+*/
 #ifndef DATE_TIME_H
 #define DATE_TIME_H
 
@@ -9,12 +15,18 @@
 
 class DateTime {
   public:
+    // Constructor.
+    // Parameter: Date in format
+    // Mmm dd hh:mm:ss
     DateTime(std::string);
     int getSeconds();
     int getMinutes();
     int getHour();
+    // Returns the month (0 Jan...11 Dec)
     int getMonth();
-    int getDate();  // Day of the month
+    // Returns the day of the month
+    int getDate();
+    // Returns string representation of the date
     std::string getDateString();
 
     bool operator ==(const DateTime&);

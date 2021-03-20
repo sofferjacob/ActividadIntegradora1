@@ -1,3 +1,9 @@
+/*
+Jacobo Soffer Levy
+A01028653
+Definition of utility functions.
+Modified: 19/03/21
+*/
 #include "util.h"
 
 using namespace std;
