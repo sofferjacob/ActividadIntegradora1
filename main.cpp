@@ -35,11 +35,13 @@ int main() {
       try {
         registry.find(from, to);
       } catch (InvalidDate e) {
-        cout << "An error ocurred: " << e.what() << endl;
+        cout << "An error occured: " << e.what() << endl;
       }
       cout << "======================" << endl;
     }
   } catch(invalid_argument e) {
     cout << "File 'bitacora.txt' not found. Terminating program" << endl;
+  } catch(...) {
+    cout << "Sorry, an unknown error occured. Terminating program" << endl;
   }
 }
