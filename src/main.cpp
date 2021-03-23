@@ -21,7 +21,7 @@ int main() {
     Records registry("bitacora.txt");
     cout << "Logs loaded to registry." << endl;
     cout << "Ordered logs written to: ./bitacora_ordenada.txt" << endl;
-    cout << "Enter 'q' at any prompt to exit the program" << endl;
+    cout << "Enter 'q' at any prompt to exit the program." << endl;
     while (true) {
       bool shouldBreak = false;
       cout << "New search" << endl;
